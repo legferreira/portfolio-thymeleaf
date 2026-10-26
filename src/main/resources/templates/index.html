@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${nome} + ' | Portfólio'">Portfólio</title>
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
+    
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+</head>
+<body>
+
+
+<header id="topo">
+    <a href="#inicio" class="logo" th:text="${nome}">Nome</a>
+
+    <button class="menu-botao" id="menuBotao" aria-label="Abrir menu">☰</button>
+
+    <nav id="menu">
+        <a href="#inicio">Home</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#projetos">Projetos</a>
+        <a href="#academicos">Acadêmicos</a>
+        <a href="#contato">Contatos</a>
+    </nav>
+</header>
+
+<main>
+
+    
+    <section id="inicio" class="inicio">
+        <p class="saudacao">Olá, eu sou</p>
+        <h1 th:text="${nome}">Nome</h1>
+        <p class="cargo" th:text="${cargo}">Cargo</p>
+        <p class="introducao" th:text="${introducao}">Breve introdução.</p>
+    </section>
+
+    
+    <section id="sobre" class="secao">
+        <h2>Sobre mim</h2>
+        <div class="card sobre-texto">
+            <p th:each="paragrafo : ${sobre}" th:text="${paragrafo}">Texto sobre mim.</p>
+        </div>
+
+        <h3 class="subtitulo">Habilidades</h3>
+        <ul class="habilidades">
+            <li th:each="habilidade : ${habilidades}" th:text="${habilidade}">Habilidade</li>
+        </ul>
+    </section>
+
+  
+    <section id="projetos" class="secao">
+        <h2>Projetos e atuação</h2>
+        <div class="grade-projetos">
+            <article class="card projeto" th:each="projeto, status : ${projetos}">
+                <span class="numero" th:text="${status.count < 10 ? '0' + status.count : status.count}">01</span>
+                <h3 th:text="${projeto.titulo}">Título do projeto</h3>
+                <p th:text="${projeto.descricao}">Descrição do projeto.</p>
+                <div class="tags">
+                    <span th:each="tag : ${projeto.tags}" th:text="${tag}">Tag</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    
+    <section id="academicos" class="secao">
+        <h2>Projetos acadêmicos</h2>
+        <div class="grade-projetos grade-academicos">
+            <article class="card projeto academico" th:each="projeto : ${projetosAcademicos}">
+                <span class="numero">Faculdade</span>
+                <h3 th:text="${projeto.titulo}">Título do projeto</h3>
+                <p th:text="${projeto.descricao}">Descrição do projeto.</p>
+                <div class="tags">
+                    <span th:each="tag : ${projeto.tags}" th:text="${tag}">Tag</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+   
+    <section id="contato" class="secao">
+        <h2>Contatos</h2>
+        <p class="contato-texto">Fique à vontade para me chamar nas redes abaixo.</p>
+        <div class="contatos">
+            <a th:each="contato : ${contatos}" th:href="${contato.link}" href="#" target="_blank" rel="noopener" class="contato">
+                <img th:src="@{${contato.icone}}" src="../static/img/linkedin.png" th:alt="${contato.nome}" alt="Ícone">
+                <span th:text="${contato.nome}">Rede social</span>
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>Desenvolvido por <strong th:text="${nome}">Leticia</strong> &middot; <span th:text="${ano}">2026</span></p>
+</footer>
+
+
+<button class="voltar-topo" id="voltarTopo" aria-label="Voltar ao topo">↑</button>
+
+
+<script th:src="@{/js/script.js}" src="../static/js/script.js"></script>
+</body>
+</html>
